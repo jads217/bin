@@ -38,6 +38,7 @@ print_words() and print_top().
 """
 
 import sys
+import re
 
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
@@ -49,10 +50,13 @@ def build_dict(filename, dict):
     wordArray = line.split()
     for word in wordArray:
       word = word.lower()
-      if word in dict:
-        dict[word] += 1
+      word_match = re.search(r'\w+', word)
+      if word_match:
+        real_word = word_match.group()
+      if real_word in dict:
+        dict[real_word] += 1
       else:
-        dict[word] = 1
+        dict[real_word] = 1
   f.close()
   return dict
 
